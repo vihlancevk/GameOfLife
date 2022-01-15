@@ -2,6 +2,7 @@ import pygame
 from random import randint
 from copy import deepcopy
 
+#--------------------------------------------------------------------------------{
 class Cell:
 
     def __init__(self, TILE, WIDTH, HEIGHT):
@@ -28,7 +29,9 @@ class Cell:
             return 0
 
     pass
+#--------------------------------------------------------------------------------}
 
+#--------------------------------------------------------------------------------{
 class Surface:
 
     def __init__(self, WIDTH, HEIGHT, FPS):
@@ -39,11 +42,15 @@ class Surface:
         self.clock = pygame.time.Clock()
 
     def draw_grid(self, TILE):
-        [pygame.draw.line(self.surface, pygame.Color('dimgray'), (x, 0), (x, self.HEIGHT)) for x in range(0, self.WIDTH, TILE)]
-        [pygame.draw.line(self.surface, pygame.Color('dimgray'), (0, y), (self.WIDTH, y)) for y in range(0, self.HEIGHT, TILE)]
+        [pygame.draw.line(self.surface, pygame.Color('dimgray'), (x, 0), (x, self.HEIGHT))
+                          for x in range(0, self.WIDTH, TILE)]
+        [pygame.draw.line(self.surface, pygame.Color('dimgray'), (0, y), (self.WIDTH, y))
+                          for y in range(0, self.HEIGHT, TILE)]
 
     pass
+#--------------------------------------------------------------------------------}
 
+#--------------------------------------------------------------------------------{
 class Game:
 
     pygame.init()
@@ -67,7 +74,9 @@ class Game:
             for x in range(self.cell.W):
                 for y in range(self.cell.H):
                     if self.current_field[y][x]:
-                        pygame.draw.rect(self.surface.surface, pygame.Color('forestgreen'), (x * self.cell.TILE + 2, y * self.cell.TILE + 2, self.cell.TILE - 2, self.cell.TILE - 2))
+                        pygame.draw.rect(self.surface.surface, pygame.Color('forestgreen'),
+                                        (x * self.cell.TILE + 2, y * self.cell.TILE + 2,
+                                         self.cell.TILE - 2, self.cell.TILE - 2))
                     self.next_field[y][x] = self.cell.check_cell(self.current_field, x, y)
 
             self.current_field = deepcopy(self.next_field)
@@ -76,7 +85,9 @@ class Game:
             self.surface.clock.tick(self.surface.FPS)
 
     pass
+#--------------------------------------------------------------------------------}
 
+#--------------------------------------------------------------------------------{
 WIDTH = 1600
 HEIGHT = 900
 FPS = 10
@@ -85,3 +96,4 @@ TILE = 20
 game = Game(WIDTH, HEIGHT, FPS, TILE, [[randint(0, 1) for i in range (WIDTH // TILE)] for j in range(HEIGHT // TILE)])
 
 game.run()
+#--------------------------------------------------------------------------------}
